@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Welcome, {{ session['username'] }}</h2>
+        <div class="balance">
+            <h3>Your Balance: <span>${{ balance }}</span></h3>
+        </div>
+        <div class="actions">
+            <a href="{{ url_for('deposit') }}" class="button">Deposit</a>
+            <a href="{{ url_for('transfer') }}" class="button">Transfer</a>
+            <a href="{{ url_for('logout') }}" class="button logout">Logout</a>
+        </div>
+        <h3>Transaction History</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Amount</th>
+                    <th>Type</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in transactions %}
+                <tr>
+                    <td>{{ transaction.id }}</td>
+                    <td>${{ transaction.amount }}</td>
+                    <td>{{ transaction.transaction_type }}</td>
+                    <td>{{ transaction.created_at }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
